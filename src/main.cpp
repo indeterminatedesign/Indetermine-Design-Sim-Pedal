@@ -1,7 +1,5 @@
-// Clean main file used for building while original src/main.cpp is being repaired
-// --- LIBRARIES ---
+
 #include <Wire.h>
-//#include <Configuration.h>
 #include <BrakeSensor.h>
 #include <ThrottleSensor.h>
 
@@ -14,9 +12,7 @@ int readThrottleValue();
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial) {
-    ; // Wait for the serial port to connect.
-  }
+
   Wire.setClock(400000); // 400kHz I2C
   Wire.begin();
 
@@ -37,16 +33,16 @@ void loop()
   Serial.println(brakeSensor.readRawValue());
   delay(100);
 
-  Joystick.X(700);
-  Joystick.Y(100);
+  Joystick.X(1022);
+  Joystick.Y(700);
   Joystick.Z(0);
   Joystick.Zrotate(0);
   Joystick.sliderLeft(0);
   Joystick.sliderRight(0);
   Joystick.hat(-1);
   Joystick.button(1, 1);
-  Joystick.button(2, 0);
-  Joystick.send_now();
+  Joystick.button(2, 1);
+  
 
 
   /*
