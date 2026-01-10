@@ -33,13 +33,10 @@ void loop()
   Serial.println(brakeSensor.readRawValue());
   delay(100);
 
-  Joystick.X(1022);
+  Joystick.X(3022);
   Joystick.Y(700);
   Joystick.Z(0);
   Joystick.Zrotate(0);
-  Joystick.sliderLeft(0);
-  Joystick.sliderRight(0);
-  Joystick.hat(-1);
   Joystick.button(1, 1);
   Joystick.button(2, 1);
   
