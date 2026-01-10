@@ -13,9 +13,10 @@ bool BrakeSensor::begin(long _zero_cal_raw, long _max_cal_raw)
 {
     brake_zero_raw = _zero_cal_raw;
     brake_max_raw = _max_cal_raw;
-    
+
     if (!nau7802.begin())
     {
+        Serial.println("NAU7802 Not Found!");
         return false;
     }
 
@@ -26,6 +27,7 @@ bool BrakeSensor::begin(long _zero_cal_raw, long _max_cal_raw)
 
     // Perform an internal calibration
     nau7802.calibrate(NAU7802_CALMOD_INTERNAL);
+    Serial.println("NAU7802 Found!");
 
     return true;
 }

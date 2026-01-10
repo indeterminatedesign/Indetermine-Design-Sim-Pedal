@@ -4,15 +4,6 @@
 //#include <Configuration.h>
 #include <BrakeSensor.h>
 #include <ThrottleSensor.h>
-#ifndef USE_JOYSTICK
-#define USE_JOYSTICK 1
-#endif
-
-#if USE_JOYSTICK
-#if defined(USB_JOYSTICK)
-#include <usb_joystick.h>
-#endif
-#endif
 
 BrakeSensor brakeSensor;
 ThrottleSensor throttleSensor;
@@ -23,8 +14,9 @@ int readThrottleValue();
 void setup()
 {
   Serial.begin(115200);
-  pinMode(13, OUTPUT);
-  digitalWrite(13, LOW);
+  while (!Serial) {
+    ; // Wait for the serial port to connect.
+  }
   Wire.setClock(400000); // 400kHz I2C
   Wire.begin();
 
@@ -33,12 +25,31 @@ void setup()
 
   // Load Min and Max values from EEPROM and set the calibrations for both sensors
 
-  Serial.println("Sim Pedal Device Initialized (clean main)");
+  Serial.println("Sim Pedal Device Initialized");
 }
 
 // --- MAIN LOOP ---
 void loop()
 {
+  Serial.println("RAW READINGS:");
+  Serial.print(throttleSensor.readRawAngle());
+  Serial.print(",");
+  Serial.println(brakeSensor.readRawValue());
+  delay(100);
+
+  Joystick.X(700);
+  Joystick.Y(100);
+  Joystick.Z(0);
+  Joystick.Zrotate(0);
+  Joystick.sliderLeft(0);
+  Joystick.sliderRight(0);
+  Joystick.hat(-1);
+  Joystick.button(1, 1);
+  Joystick.button(2, 0);
+  Joystick.send_now();
+
+
+  /*
   int brake_output = readBrakeValue();
   int throttle_output = readThrottleValue();
 
@@ -70,6 +81,7 @@ void loop()
 #endif
 
   delay(10);
+  */
 }
 
 int readBrakeValue()

@@ -9,11 +9,19 @@ ThrottleSensor::ThrottleSensor()
 }
 
 // --- Initialization ---
-void ThrottleSensor::begin(uint16_t _min_cal_raw, uint16_t _max_cal_raw, bool _is_inverted)
+bool ThrottleSensor::begin(uint16_t _min_cal_raw, uint16_t _max_cal_raw, bool _is_inverted)
 {
+    if (!as5600.begin())
+    {
+        Serial.println("AS5600 Not Found!");
+        return false;
+    }
+
     min_cal_raw = _min_cal_raw;
     max_cal_raw = _max_cal_raw;
     is_inverted = _is_inverted;
+    Serial.println("AS5600 Found!");
+    return true;
 }
 
 // --- Calibration Setter ---
@@ -27,20 +35,10 @@ void ThrottleSensor::setCalibration(uint16_t min_raw, uint16_t max_raw, bool inv
 // --- Raw Sensor Read ---
 uint16_t ThrottleSensor::readRawAngle()
 {
-    uint16_t rawAngle = 0;
-    Wire.beginTransmission(AS5600_ADDR);
-    Wire.write(0x0C); // RAW_ANGLE_H register address
-    Wire.endTransmission(false);
-    Wire.requestFrom(AS5600_ADDR, 2);
-
-    if (Wire.available() == 2)
-    {
-        rawAngle = Wire.read() << 8;
-        rawAngle |= Wire.read();
-    }
+    uint16_t rawAngle = as5600.readAngle();
     Serial.print("Throttle Raw Angle: ");
     Serial.println(rawAngle);
-    return rawAngle & AS5600_RAW_MAX;
+    return rawAngle;
 }
 
 // --- Mapped Value Getter ---

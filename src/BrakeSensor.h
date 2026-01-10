@@ -14,6 +14,7 @@ public:
   void setCalibration(long zero_raw, long max_raw);
 
   int getMappedValue();
+    long readRawValue();
 
 private:
   Adafruit_NAU7802 nau7802;
@@ -23,6 +24,6 @@ private:
   // Load cell raw reading at maximum desired braking pressure
   long brake_max_raw;
   // Read the raw value from the NAU7802 (helper)
-  long readRawValue();
+
 };
 #endif
