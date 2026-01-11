@@ -37,12 +37,8 @@ void loop()
   Serial.print(",");
   Serial.println(brakeSensor.getMappedValue());
 
-  Joystick.X(throttleSensor.getMappedValue());
-  Joystick.Y(brakeSensor.getMappedValue());
-  Joystick.Z(0);
-  Joystick.Zrotate(0);
-  Joystick.button(1, 1);
-  Joystick.button(2, 1);
+  Joystick.Y(throttleSensor.getMappedValue());
+  Joystick.X(brakeSensor.getMappedValue());
   delay(100);
 
   /*

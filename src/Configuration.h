@@ -8,7 +8,7 @@
 
 // --- USB JOYSTICK SETUP ---
 // Standard 10-bit resolution for joystick output (0 to 65534)
-#define JOYSTICK_RESOLUTION 65535
+#define JOYSTICK_RESOLUTION 65534
 #define JOYSTICK_MAX_VALUE (JOYSTICK_RESOLUTION - 1)
 
 // --- THROTTLE CALIBRATION CONSTANTS (AS5600) ---

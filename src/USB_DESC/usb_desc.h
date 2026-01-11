@@ -277,6 +277,25 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
   #define ENDPOINT5_CONFIG	ENDPOINT_RECEIVE_UNUSED + ENDPOINT_TRANSMIT_INTERRUPT
   #define ENDPOINT6_CONFIG	ENDPOINT_RECEIVE_UNUSED + ENDPOINT_TRANSMIT_INTERRUPT
 
+  #elif defined(USB_ARCADE)
+    #define VENDOR_ID   0x16C0
+    #define PRODUCT_ID    0x0489
+    #define DEVICE_CLASS    0x03
+    #define MANUFACTURER_NAME {'B', 'l', 'a', 'z', 'i', 'n', 'g', 'M', 'a', 'm', 'm', 'o', 't', 'h'}
+    #define MANUFACTURER_NAME_LEN 14
+    #define PRODUCT_NAME    {'W', 'e', 'd', 'c', 'a', 'd', 'e', ' ', 'C', 'o', 'n', 't', 'r', 'o', 'l', 'l', 'e', 'r'}
+    #define PRODUCT_NAME_LEN  18
+    #define EP0_SIZE              64
+    #define NUM_ENDPOINTS         2
+    #define NUM_USB_BUFFERS       30
+    #define NUM_INTERFACE         1
+    #define ARCADE_INTERFACE      0 // Joystick
+    #define ARCADE_ENDPOINT       1
+    #define ARCADE_SIZE           16
+    #define ARCADE_INTERVAL       1
+    #define ARCADE_DESC_OFFSET  (9)
+    #define CONFIG_DESC_SIZE  (9 + 9+9+7)
+    #define ENDPOINT1_CONFIG  ENDPOINT_TRANSIMIT_ONLY
 #elif defined(USB_SERIAL_HID)
   #define VENDOR_ID		0x16C0
   #define PRODUCT_ID		0x0487
