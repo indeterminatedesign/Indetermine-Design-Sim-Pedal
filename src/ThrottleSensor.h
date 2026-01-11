@@ -12,19 +12,18 @@ class ThrottleSensor
 {
 public:
     ThrottleSensor();
-    bool begin(uint16_t _min_cal_raw, uint16_t _max_cal_raw, bool _is_inverted);
-    void setCalibration(uint16_t min_raw, uint16_t max_raw, bool inverted);
-    int getMappedValue();
+    bool begin(uint16_t _throttle_min_raw, uint16_t _throttle_max_raw, uint16_t _deadzone);
+    void setCalibration(uint16_t min_raw, uint16_t max_raw);
+    long getMappedValue();
     uint16_t readRawAngle();
 
 private:
-    uint16_t min_cal_raw;
-    uint16_t max_cal_raw;
     // Min raw value when pedal is fully released
     uint16_t throttle_min_raw;
     // Max raw value when pedal is fully pressed
     uint16_t throttle_max_raw;
-    bool is_inverted = false;
+    //Deadzone threshold for bottom and top of pedal travel (For example the total range is 0-4095, a deadzone of 10 would be about 0.24%, meaning a reading of 4085-4095 is 100% throttle)
+    uint16_t deadzone = 10;
 
     AS5600 as5600;
 };

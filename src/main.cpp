@@ -1,4 +1,3 @@
-
 #include <Wire.h>
 #include <BrakeSensor.h>
 #include <ThrottleSensor.h>
@@ -16,8 +15,10 @@ void setup()
   Wire.setClock(400000); // 400kHz I2C
   Wire.begin();
 
-  brakeSensor.begin(0,100000);
-  throttleSensor.begin(0,4095,false);
+  delay(10000);
+  brakeSensor.begin(500000, .02, .05);
+  brakeSensor.calibrate();
+  throttleSensor.begin(3948, 3762, 10);
 
   // Load Min and Max values from EEPROM and set the calibrations for both sensors
 
@@ -27,20 +28,22 @@ void setup()
 // --- MAIN LOOP ---
 void loop()
 {
-  Serial.println("RAW READINGS:");
+  Serial.print("RAW READINGS:");
   Serial.print(throttleSensor.readRawAngle());
   Serial.print(",");
   Serial.println(brakeSensor.readRawValue());
-  delay(100);
+  Serial.print("MAPPED VALUES:");
+  Serial.print(throttleSensor.getMappedValue());
+  Serial.print(",");
+  Serial.println(brakeSensor.getMappedValue());
 
-  Joystick.X(3022);
-  Joystick.Y(700);
+  Joystick.X(throttleSensor.getMappedValue());
+  Joystick.Y(brakeSensor.getMappedValue());
   Joystick.Z(0);
   Joystick.Zrotate(0);
   Joystick.button(1, 1);
   Joystick.button(2, 1);
-  
-
+  delay(100);
 
   /*
   int brake_output = readBrakeValue();
@@ -79,10 +82,10 @@ void loop()
 
 int readBrakeValue()
 {
-return brakeSensor.getMappedValue();
+  return brakeSensor.getMappedValue();
 }
 
 int readThrottleValue()
 {
-return throttleSensor.getMappedValue();
+  return throttleSensor.getMappedValue();
 }

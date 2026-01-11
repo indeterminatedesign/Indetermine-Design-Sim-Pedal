@@ -7,8 +7,8 @@
 #define AS5600_ADDR 0x36
 
 // --- USB JOYSTICK SETUP ---
-// Standard 10-bit resolution for joystick output (0 to 1023)
-#define JOYSTICK_RESOLUTION 1024
+// Standard 10-bit resolution for joystick output (0 to 65534)
+#define JOYSTICK_RESOLUTION 65535
 #define JOYSTICK_MAX_VALUE (JOYSTICK_RESOLUTION - 1)
 
 // --- THROTTLE CALIBRATION CONSTANTS (AS5600) ---
