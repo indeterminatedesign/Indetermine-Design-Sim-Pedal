@@ -5,9 +5,6 @@
 BrakeSensor brakeSensor;
 ThrottleSensor throttleSensor;
 
-int readBrakeValue();
-int readThrottleValue();
-
 void setup()
 {
   Serial.begin(115200);
@@ -76,12 +73,3 @@ void loop()
   */
 }
 
-int readBrakeValue()
-{
-  return brakeSensor.getMappedValue();
-}
-
-int readThrottleValue()
-{
-  return throttleSensor.getMappedValue();
-}
